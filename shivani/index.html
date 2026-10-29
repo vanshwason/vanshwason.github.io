@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shivani Sharma</title>
+<meta name="description" content="Shivani Sharma, graphic designer and video editor.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--sel:#2463eb;--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:#f4f2ef;color:#111;-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
+
+/* wallpaper: put her portrait at img/wallpaper.jpg */
+#wall{position:fixed;inset:-40px;background:url(img/wallpaper.jpg) center/cover no-repeat,
+  radial-gradient(28% 22% at 50% 20%,#c9c3dc 0,#c9c3dc 60%,transparent 100%),
+  radial-gradient(20% 30% at 52% 45%,#c98a6a 0,#a85f45 55%,transparent 100%),
+  radial-gradient(42% 40% at 55% 100%,#2b211c 0,#3a2a22 60%,transparent 100%),
+  #f4f2ef;filter:blur(18px);transform:scale(1.05)}
+
+#desk{position:fixed;inset:0}
+.icon{position:absolute;width:118px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default;touch-action:none;transform:translate(-50%,-50%)}
+.icon .th{width:60px;height:60px;display:grid;place-items:center;border-radius:4px;border:2px solid transparent}
+.icon .th img{max-width:60px;max-height:60px;display:block;box-shadow:0 2px 6px rgba(0,0,0,.25);pointer-events:none}
+.icon span{font-size:12.5px;font-weight:700;color:#fff;text-align:center;line-height:1.25;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.55);padding:1px 5px;border-radius:4px}
+.icon.sel .th{background:rgba(0,0,0,.18);border-color:rgba(255,255,255,.35)}
+.icon.sel span{background:var(--sel);text-shadow:none}
+
+/* dock */
+#dock{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:900;display:flex;align-items:flex-end;gap:6px;padding:6px 8px;border-radius:18px;background:rgba(240,240,240,.35);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.app{position:relative;width:50px;height:50px;transition:width .18s,height .18s,margin .18s;cursor:pointer;border:0;background:none;padding:0}
+.app svg,.app .ad{width:100%;height:100%;display:block}
+.app:hover{width:66px;height:66px;margin-top:-16px}
+.app .tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:rgba(40,40,40,.85);color:#fff;font-size:12px;padding:3px 9px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+.app:hover .tip{opacity:1}
+.app.on::after{content:"";position:absolute;bottom:-5px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:rgba(0,0,0,.6)}
+.sep{width:1px;align-self:stretch;margin:4px 3px;background:rgba(0,0,0,.18)}
+.ad{border-radius:22%;display:grid!important;place-items:center;font:600 22px/1 var(--font);letter-spacing:-.02em}
+.pr{background:#00005b;color:#9999ff;box-shadow:inset 0 0 0 2px #9999ff}
+.ps{background:#001e36;color:#31a8ff;box-shadow:inset 0 0 0 2px #31a8ff}
+.ai{background:#330000;color:#ff9a00;box-shadow:inset 0 0 0 2px #ff9a00}
+
+/* windows */
+.win{position:fixed;z-index:100;width:min(560px,calc(100vw - 24px));max-height:min(78vh,720px);display:flex;flex-direction:column;background:rgba(246,246,246,.94);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:11px;border:1px solid rgba(0,0,0,.12);box-shadow:0 24px 60px rgba(0,0,0,.3),0 0 0 .5px rgba(0,0,0,.2);overflow:hidden;animation:pop .18s ease-out;user-select:text;-webkit-user-select:text}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.bar{height:30px;flex:none;display:flex;align-items:center;gap:8px;padding:0 12px;cursor:grab;touch-action:none;border-bottom:1px solid rgba(0,0,0,.08);user-select:none}
+.bar b{font-size:12.5px;font-weight:600;color:#333;margin-left:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dots{display:flex;gap:7px}
+.dots i{width:12px;height:12px;border-radius:50%;background:#ff5f57;border:.5px solid rgba(0,0,0,.15);cursor:pointer}
+.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
+.win:not(.top) .dots i{background:#d0d0d0}
+.body{overflow:auto;padding:14px 16px 18px;font-size:12.5px;line-height:1.5;color:#222}
+.hd{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.hd img{width:40px;height:40px;object-fit:cover}
+.hd strong{display:block;font-size:13px}
+.hd small{color:#666;font-size:12px}
+.body p{margin-bottom:8px}
+.dt{border-top:1px solid rgba(0,0,0,.08);padding-top:8px;margin-top:8px}
+.dt h6{font-size:12px;margin-bottom:4px}
+.prev{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.prev img,.prev iframe,.prev video{height:240px;width:auto;flex:none;border-radius:4px;background:#000;border:0}
+.prev iframe{width:420px;aspect-ratio:16/9;height:auto}
+
+/* notes window */
+.notes{display:flex;min-height:380px;padding:0}
+.notes aside{width:150px;flex:none;background:rgba(0,0,0,.04);border-right:1px solid rgba(0,0,0,.08);padding:8px}
+.notes aside button{display:flex;justify-content:space-between;width:100%;border:0;background:none;font:inherit;font-size:12.5px;padding:6px 8px;border-radius:6px;cursor:pointer;text-align:left}
+.notes aside button small{color:#888}
+.notes aside button.on{background:#f5c94c55}
+.notes .pg{padding:14px 18px;flex:1}
+.notes ul{list-style:none}
+.notes li{padding:2px 0}
+.notes li::before{content:"";display:inline-block;width:11px;height:11px;border-radius:50%;background:#f4b400;margin-right:8px;vertical-align:-1px}
+.cv div{display:flex;gap:14px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.cv span{color:#888;width:90px;flex:none}
+
+/* alerts */
+.alert{position:fixed;z-index:1000;left:50%;top:42%;transform:translate(-50%,-50%);width:min(380px,calc(100vw - 32px));background:rgba(40,40,40,.92);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);color:#eee;border-radius:11px;box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.15) inset;overflow:hidden;animation:pop .15s ease-out}
+.alert .t{text-align:center;font-size:11.5px;color:#aaa;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.alert .m{display:flex;gap:14px;padding:14px 16px 6px;font-size:12.5px;line-height:1.45}
+.alert .m .ad{width:44px;height:44px;flex:none;font-size:19px}
+.alert .m svg{width:44px;height:44px;flex:none}
+.alert .b{display:flex;justify-content:flex-end;padding:8px 14px 14px}
+.alert button{background:#2a6bf2;color:#fff;border:0;border-radius:6px;font:inherit;font-size:12.5px;padding:5px 14px;cursor:pointer}
+
+@media (max-width:700px){
+  #dock{left:8px;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;padding:8px 6px}
+  .app,.app:hover{width:46px;height:46px;margin:0}
+  .app .tip{display:none}
+  .sep{width:auto;height:1px;margin:3px 4px}
+  .app.on::after{left:-4px;top:50%;bottom:auto;margin:-2px 0 0}
+  .icon{width:100px}
+  .icon .th,.icon .th img{max-width:56px;max-height:56px}
+  .icon span{font-size:11.5px}
+  .win{left:12px!important;right:12px;top:12px!important;width:auto;max-height:calc(100vh - 24px)}
+  .notes{flex-direction:column}
+  .notes aside{width:auto;display:flex;border-right:0;border-bottom:1px solid rgba(0,0,0,.08)}
+}
+</style>
+</head>
+<body>
+<div id="wall"></div>
+<main id="desk" aria-label="Projects"></main>
+<nav id="dock"></nav>
+
+<script>
+/* ========= EDIT HER CONTENT HERE ========= */
+const OWNER = {
+  name: "Shivani Sharma",
+  email: "email@example.com",
+  instagram: "https://www.instagram.com/",
+  about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Duis aute irure dolor in reprehenderit in voluptate velit esse.",
+  skills: ["Lorem ipsum","Dolor sit amet","Consectetur","Adipiscing elit","Sed do eiusmod","Tempor incididunt","Ut labore","Dolore magna"],
+  cv: [["20XX to now","Lorem ipsum dolor"],["20XX to 20XX","Sit amet consectetur"],["20XX","Adipiscing elit"],["Education","Sed do eiusmod"]],
+  interests: ["Lorem ipsum","Dolor sit","Amet consectetur","Adipiscing"],
+  gallery: [] // e.g. ["img/gallery-1.jpg","img/gallery-2.jpg"]
+};
+
+/* x, y are % positions on the desktop. thumb and images take file paths like "img/monsoon.jpg".
+   video takes a YouTube/Vimeo embed URL. Leave them empty to use placeholder art. */
+const PROJECTS = [
+  {title:"Project 01", client:"Client name", type:"Category > Category > Software", x:24, y:20, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 02", client:"Client name", type:"Category > Category > Software", x:33, y:24, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 03", client:"Client name", type:"Category > Category > Software", x:39, y:29, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 04", client:"Client name", type:"Category > Category > Software", x:59, y:18, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 05", client:"Client name", type:"Category > Category > Software", x:66, y:16, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 06", client:"Client name", type:"Category > Category > Software", x:78, y:39, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 07", client:"Client name", type:"Category > Category > Software", x:82, y:42, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 08", client:"Client name", type:"Category > Category > Software", x:91, y:46, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 09", client:"Client name", type:"Category > Category > Software", x:61, y:40, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 10", client:"Client name", type:"Category > Category > Software", x:47, y:41, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 11", client:"Client name", type:"Category > Category > Software", x:21, y:36, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 12", client:"Client name", type:"Category > Category > Software", x:72, y:50, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 13", client:"Client name", type:"Category > Category > Software", x:40, y:51, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 14", client:"Client name", type:"Category > Category > Software", x:39, y:58, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 15", client:"Client name", type:"Category > Category > Software", x:19, y:57, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 16", client:"Client name", type:"Category > Category > Software", x:54, y:67, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 17", client:"Client name", type:"Category > Category > Software", x:58, y:73, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 18", client:"Client name", type:"Category > Category > Software", x:47, y:73, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."},
+  {title:"Project 19", client:"Client name", type:"Category > Category > Software", x:66, y:68, desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."}
+];
+
+/* Funny dock alerts. Rewrite these in her own voice. */
+const ALERTS = {
+  pr:{app:"Adobe Premiere Pro", text:"Media offline. All 214 clips. The client renamed the folder to final_final_v8.", btn:"Relink everything"},
+  ps:{app:"Adobe Photoshop", text:"Could not complete your request because there are 147 layers named Layer 1 copy.", btn:"Merge nothing"},
+  ai:{app:"Adobe Illustrator", text:"The client asked to make the logo bigger. Illustrator has stopped responding to protect itself.", btn:"Make it bigger"},
+  warn:{app:"System Error", text:"Graphic designer was asked to add a little more pop. Please wait while she recovers.", btn:"Add pop"}
+};
+/* ========= END OF CONTENT ========= */
+
+const $ = (h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild};
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mobile = ()=>innerWidth<=700;
+
+// placeholder thumbnails
+const PAL=[["#ff4d1f","#141312"],["#141312","#ffd23f"],["#31a8ff","#0d2a52"],["#d9ff3f","#141312"],["#2a1f66","#ff9a00"],["#e9dccb","#3b2a1d"],["#f25c9b","#fff"],["#0f5132","#e9f5db"],["#fff","#141312"],["#7a1c0a","#ffb199"]];
+function art(title,i,v=0,w=300,h=300){
+  const t=w>300?'Image placeholder':'Image';
+  return 'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="#d9d9d9"/><path d="M0 0L${w} ${h}M${w} 0L0 ${h}" stroke="#bdbdbd" stroke-width="2"/><rect x="${w/2-w*.3}" y="${h/2-w*.07}" width="${w*.6}" height="${w*.14}" fill="#d9d9d9"/><text x="50%" y="50%" font-family="Arial" font-size="${w*.075}" fill="#777" text-anchor="middle" dominant-baseline="middle">${t}</text></svg>`);
+}
+
+// desktop icons
+const desk=document.getElementById('desk');
+let selected=null;
+function placeIcons(){
+  desk.innerHTML='';
+  const m=mobile(),cols=3;
+  PROJECTS.forEach((p,i)=>{
+    const el=$(`<div class="icon" tabindex="0"><div class="th"><img src="${p.thumb||art(p.title,i)}" alt=""></div><span>${esc(p.title)}</span></div>`);
+    let x=p.x,y=p.y;
+    if(m){ // tight scatter to the right of the side dock
+      const c=i%cols,r=Math.floor(i/cols),rows=Math.ceil(PROJECTS.length/cols);
+      x=34+c*25+((i*37)%9-4);y=7+r*(86/rows)+((i*53)%5-2);
+    }
+    el.style.left=x+'%';el.style.top=y+'%';
+    desk.appendChild(el);drag(el,el,()=>select(el),()=>openProject(p,i,el));
+    el.addEventListener('keydown',e=>{if(e.key==='Enter')openProject(p,i,el)});
+  });
+}
+function select(el){if(selected)selected.classList.remove('sel');selected=el;el&&el.classList.add('sel')}
+desk.addEventListener('pointerdown',e=>{if(e.target===desk)select(null)});
+
+// drag with tap and double tap detection
+function drag(handle,target,onTap,onOpen){
+  let sx,sy,ox,oy,moved,last=0;
+  handle.addEventListener('pointerdown',e=>{
+    if(e.target.closest('.dots'))return;
+    e.preventDefault();handle.setPointerCapture(e.pointerId);
+    const r=target.getBoundingClientRect();
+    sx=e.clientX;sy=e.clientY;moved=false;
+    const tr=target.classList.contains('icon');
+    ox=tr?r.left+r.width/2:r.left;oy=tr?r.top+r.height/2:r.top;
+    target.style.zIndex=++Z;
+    const mv=ev=>{const dx=ev.clientX-sx,dy=ev.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
+      if(moved){target.style.left=(ox+dx)+'px';target.style.top=Math.max(0,oy+dy)+'px'}};
+    const up=()=>{handle.removeEventListener('pointermove',mv);handle.removeEventListener('pointerup',up);
+      if(!moved&&onTap){onTap();const now=Date.now();
+        if(onOpen&&(now-last<400||e.pointerType==='touch'))onOpen();last=now}};
+    handle.addEventListener('pointermove',mv);handle.addEventListener('pointerup',up);
+  });
+}
+
+// windows
+let Z=200,offset=0;const openWins={};
+function win(key,title,html,cls=''){
+  if(openWins[key]){focus(openWins[key]);return openWins[key]}
+  const w=$(`<section class="win" role="dialog" aria-label="${esc(title)}"><div class="bar"><div class="dots"><i title="Close"></i><i></i><i></i></div><b>${esc(title)}</b></div><div class="body ${cls}">${html}</div></section>`);
+  document.body.appendChild(w);
+  const W=w.offsetWidth,H=w.offsetHeight;
+  w.style.left=Math.max(8,(innerWidth-W)/2+offset-60)+'px';
+  w.style.top=Math.max(8,(innerHeight-H)/2+offset-60)+'px';
+  offset=(offset+28)%140;
+  w.querySelector('.dots i').onclick=()=>{w.remove();delete openWins[key];dockState()};
+  w.addEventListener('pointerdown',()=>focus(w));
+  drag(w.querySelector('.bar'),w);
+  openWins[key]=w;focus(w);dockState();return w;
+}
+function focus(w){document.querySelectorAll('.win').forEach(x=>x.classList.remove('top'));w.classList.add('top');w.style.zIndex=++Z}
+
+function openProject(p,i){
+  const imgs=(p.images&&p.images.length?p.images:[0,1,2].map(v=>art(p.title,i,v,400,500)));
+  const media=(p.video?`<iframe src="${esc(p.video)}" allow="autoplay; fullscreen" allowfullscreen></iframe>`:'')+imgs.map(s=>`<img src="${s}" alt="${esc(p.title)}">`).join('');
+  win('p'+i,'Information about: '+p.title,`
+    <div class="hd"><img src="${p.thumb||art(p.title,i)}" alt=""><div><strong>${esc(p.title)}</strong><small>${esc(p.client)}</small></div></div>
+    <p>${esc(p.desc)}</p>
+    <div class="dt"><h6>Details:</h6><p>Type: ${esc(p.type)}</p></div>
+    <div class="dt"><h6>Preview:</h6><div class="prev">${media}</div></div>`);
+}
+
+function openNotes(){
+  const pages={
+    about:`<p>${esc(OWNER.about)}</p><p style="margin-top:12px">I can do...</p><ul>${OWNER.skills.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`,
+    cv:`<div class="cv">${OWNER.cv.map(([a,b])=>`<div><span>${esc(a)}</span>${esc(b)}</div>`).join('')}</div>`,
+    int:`<ul>${OWNER.interests.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`
+  };
+  const w=win('notes',`Information about: ${OWNER.name}, ${OWNER.email}`,`
+    <aside><button class="on" data-p="about">About me <small>${OWNER.skills.length}</small></button><button data-p="cv">CV <small>${OWNER.cv.length}</small></button><button data-p="int">Interests <small>${OWNER.interests.length}</small></button></aside>
+    <div class="pg">${pages.about}</div>`,'notes');
+  w.querySelectorAll('aside button').forEach(b=>b.onclick=()=>{
+    w.querySelectorAll('aside button').forEach(x=>x.classList.toggle('on',x===b));
+    w.querySelector('.pg').innerHTML=pages[b.dataset.p]});
+}
+function openGallery(){
+  const imgs=OWNER.gallery.length?OWNER.gallery:[0,1,2,3].map(v=>art('',v,v,400,500));
+  win('gallery','Information about: Gallery',`
+    <div class="hd">${PHOTOS.replace('<svg','<svg width="40" height="40"')}<div><strong>Gallery</strong><small>Lowkey documentation</small></div></div>
+    <div class="dt"><h6>Preview:</h6><div class="prev">${imgs.map(s=>`<img src="${s}" alt="">`).join('')}</div></div>`);
+}
+function openTrash(){
+  win('trash','Trash',`<p>Things that never made it out of the studio:</p><ul style="list-style:none;margin-top:8px">${
+    ['logo_v1.ai','logo_v2_bigger.ai','logo_v12_FINAL.ai','comic_sans_test.psd','reel_with_vertical_bars.mp4','client_feedback_round_9.pdf'].map(f=>`<li style="padding:3px 0">🗋 ${f}</li>`).join('')}</ul>`);
+}
+
+function alertBox(k){
+  document.querySelectorAll('.alert').forEach(a=>a.remove());
+  const a=ALERTS[k];
+  const ico=k==='warn'?WARN:`<div class="ad ${k}">${k==='pr'?'Pr':k==='ps'?'Ps':'Ai'}</div>`;
+  const el=$(`<div class="alert" role="alertdialog"><div class="t">${esc(a.app)}</div><div class="m">${ico}<div>${esc(a.text)}</div></div><div class="b"><button>${esc(a.btn)}</button></div></div>`);
+  document.body.appendChild(el);el.querySelector('button').onclick=()=>el.remove();el.querySelector('button').focus();
+}
+
+// dock icons
+const WARN=`<svg viewBox="0 0 64 64"><path d="M32 6 61 57H3Z" fill="#ffcc00" stroke="#e0a800" stroke-width="2" stroke-linejoin="round"/><rect x="29" y="22" width="6" height="20" rx="3" fill="#222"/><circle cx="32" cy="49" r="3.5" fill="#222"/></svg>`;
+const NOTES=`<svg viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="13" fill="#fff"/><path d="M4 17V17A13 13 0 0 1 17 4H47A13 13 0 0 1 60 17V20H4Z" fill="#fcd34d"/><g stroke="#ddd" stroke-width="1.5"><path d="M10 30H54M10 38H54M10 46H54"/></g></svg>`;
+const PHOTOS=`<svg viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="13" fill="#fff"/>${['#f9b233','#f28b30','#e84e4e','#c4469c','#7b5fc7','#3a8fe0','#36b37e','#a3c93a'].map((c,k)=>`<ellipse cx="32" cy="21" rx="7" ry="11" fill="${c}" opacity=".85" transform="rotate(${k*45} 32 32)"/>`).join('')}</svg>`;
+const INSTA=`<svg viewBox="0 0 64 64"><defs><radialGradient id="ig" cx=".3" cy="1.05" r="1.2"><stop offset="0" stop-color="#fd5"/><stop offset=".3" stop-color="#ff543e"/><stop offset=".6" stop-color="#c837ab"/><stop offset="1" stop-color="#3a5bd9"/></radialGradient></defs><rect x="4" y="4" width="56" height="56" rx="13" fill="url(#ig)"/><rect x="16" y="16" width="32" height="32" rx="9" fill="none" stroke="#fff" stroke-width="4"/><circle cx="32" cy="32" r="7.5" fill="none" stroke="#fff" stroke-width="4"/><circle cx="41.5" cy="22.5" r="2.4" fill="#fff"/></svg>`;
+const MAIL=`<svg viewBox="0 0 64 64"><defs><linearGradient id="ml" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fc1ff"/><stop offset="1" stop-color="#1a7cf0"/></linearGradient></defs><rect x="4" y="4" width="56" height="56" rx="13" fill="url(#ml)"/><rect x="13" y="20" width="38" height="25" rx="3" fill="#fff"/><path d="M14 22 32 35 50 22" fill="none" stroke="#1a7cf0" stroke-width="2.5"/></svg>`;
+const TRASH=`<svg viewBox="0 0 64 64"><path d="M14 16H50L46 58H18Z" fill="rgba(255,255,255,.55)" stroke="rgba(0,0,0,.25)"/><g stroke="rgba(0,0,0,.18)" stroke-width="1.5"><path d="M24 22 25 52M32 22V52M40 22 39 52"/></g><rect x="12" y="11" width="40" height="6" rx="3" fill="rgba(255,255,255,.75)" stroke="rgba(0,0,0,.2)"/></svg>`;
+
+const DOCK=[
+  {k:'pr',tip:'Premiere Pro',html:'<div class="ad pr">Pr</div>',fn:()=>alertBox('pr')},
+  {k:'ps',tip:'Photoshop',html:'<div class="ad ps">Ps</div>',fn:()=>alertBox('ps')},
+  {k:'ai',tip:'Illustrator',html:'<div class="ad ai">Ai</div>',fn:()=>alertBox('ai')},
+  {k:'warn',tip:'Error',html:WARN,fn:()=>alertBox('warn')},
+  'sep',
+  {k:'notes',tip:'CV',html:NOTES,fn:openNotes},
+  {k:'gallery',tip:'Gallery',html:PHOTOS,fn:openGallery},
+  'sep',
+  {k:'ig',tip:'Instagram',html:INSTA,href:OWNER.instagram},
+  {k:'mail',tip:'Mail',html:MAIL,href:'mailto:'+OWNER.email},
+  'sep',
+  {k:'trash',tip:'Trash',html:TRASH,fn:openTrash}
+];
+const dock=document.getElementById('dock');
+DOCK.forEach(d=>{
+  if(d==='sep'){dock.appendChild($('<div class="sep"></div>'));return}
+  const el=d.href?$(`<a class="app" href="${esc(d.href)}" target="_blank" rel="noopener" aria-label="${d.tip}">${d.html}<span class="tip">${d.tip}</span></a>`)
+                 :$(`<button class="app" data-k="${d.k}" aria-label="${d.tip}">${d.html}<span class="tip">${d.tip}</span></button>`);
+  if(d.fn)el.onclick=d.fn;dock.appendChild(el);
+});
+function dockState(){dock.querySelectorAll('[data-k]').forEach(b=>b.classList.toggle('on',!!openWins[b.dataset.k]))}
+
+addEventListener('keydown',e=>{if(e.key==='Escape'){const a=document.querySelector('.alert');if(a)return a.remove();
+  const t=document.querySelector('.win.top');if(t)t.querySelector('.dots i').click()}});
+let wasMobile=mobile();addEventListener('resize',()=>{if(mobile()!==wasMobile){wasMobile=mobile();placeIcons()}});
+placeIcons();
+</script>
+</body>
+</html>
